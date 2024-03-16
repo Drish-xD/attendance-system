@@ -18,7 +18,7 @@ const loginAuth = async (email: string, password: string): Promise<boolean> => {
     if (!data[0]) throw new Error('No user Found');
 
     // set Cookie to userId
-    setCookie('user', data[0].id);
+    setCookie('loginUser', data[0].id);
     return true;
   } catch (error) {
     throw new Error('Incorrect credentials or No user found!!!');

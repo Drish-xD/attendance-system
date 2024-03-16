@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from 'contexts/auth';
+import { useAuth } from '@/Provider/auth';
 import { useRouter } from 'next/navigation';
 import { useLayoutEffect } from 'react';
 
@@ -19,14 +19,13 @@ const Profile = () => {
 
       return () => clearTimeout(timeoutId);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, router]);
 
   return (
     <main className="h-screen w-full flex justify-center items-center flex-col">
       {isLoggedIn ? (
         <>
           <h2 className="text-5xl">Profile</h2>
-
           <p>Not Implemented yet</p>
         </>
       ) : (

@@ -1,6 +1,6 @@
 interface AuthContextType {
   isLoggedIn: boolean;
-  login: (email: string, pass: string) => void;
+  login: (email: string, pass: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -19,4 +19,4 @@ interface UserType {
   password?: string;
 }
 
-export type { AttendanceRecord, UserType, AuthContextType };
+export type { AttendanceRecord, AuthContextType, UserType };

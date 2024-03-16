@@ -4,7 +4,7 @@
 
 ## Tech Used
 
-- **_NEXTJS 13_**: A React framework for building modern web applications with server-side rendering and routing.
+- **_NEXTJS 14_**: A React framework for building modern web applications with server-side rendering and routing.
 
 - **_NEXTUI_**: UI components library for Next.js applications, build over `tailwind.css`.
 
@@ -51,7 +51,7 @@
 
 - Clone Repo:
 
-  `git clone https://github.com/Drish-xD/attendance-system`
+  `git clone https://github.com/Drish-xD/RollSync`
 
 - Install npm packages
 

@@ -1,8 +1,8 @@
 'use client';
 
+import { useAuth } from '@/Provider/auth';
 import { LoginForm } from '@/components';
 import { Button, Card, Link, Spacer, Spinner } from '@nextui-org/react';
-import { useAuth } from 'contexts/auth';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createRef, useState } from 'react';

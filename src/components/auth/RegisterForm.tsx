@@ -1,20 +1,11 @@
 'use client';
 
-import {
-  Button,
-  Checkbox,
-  Input,
-  Link,
-  Select,
-  SelectItem,
-  Spacer,
-  Spinner
-} from '@nextui-org/react';
+import { Button, Checkbox, Input, Link, Select, SelectItem, Spacer } from '@nextui-org/react';
 import NextLink from 'next/link';
 
+import { classOptions, sectionOptions } from '@/utils/options';
 import { RefObject, useState } from 'react';
 import { Eye, EyeOff } from 'react-feather';
-import { classOptions, sectionOptions } from 'utils/options';
 
 export default function RegisterForm({
   formRef,
@@ -25,17 +16,15 @@ export default function RegisterForm({
   registerUser: () => void;
   loading: boolean;
 }) {
-  // state for password show / hide
   const [isVisible, setIsVisible] = useState(false);
 
-  // check validation of data
-  const [valid, setValid] = useState<{ [key: string]: boolean | undefined }>({
-    email: undefined,
-    password: undefined,
-    fname: undefined,
-    lname: undefined,
-    class_: undefined,
-    section: undefined
+  const [valid, setValid] = useState<{ [key: string]: boolean | null }>({
+    email: null,
+    password: null,
+    fname: null,
+    lname: null,
+    class_: null,
+    section: null
   });
 
   const validateEmail = (value: string) => /^[a-z]{2}\d{4}$/.test(value);
@@ -74,7 +63,8 @@ export default function RegisterForm({
           label="First Name"
           name="fname"
           placeholder="Enter your first name"
-          validationState={valid.fname === false ? 'invalid' : 'valid'}
+          isInvalid={valid.fname === false}
+          errorMessage={valid.fname === false && 'Please enter the first name'}
           isRequired
           onBlur={handleValidation}
         />
@@ -85,7 +75,8 @@ export default function RegisterForm({
           label="Last Name"
           name="lname"
           placeholder="Enter your last name"
-          validationState={valid.lname === false ? 'invalid' : 'valid'}
+          errorMessage={valid.lname === false && 'Please enter the last name'}
+          isInvalid={valid.lname === false}
           isRequired
           onBlur={handleValidation}
         />
@@ -97,8 +88,9 @@ export default function RegisterForm({
           name="class"
           isRequired
           placeholder="Select your class"
-          validationState={valid.class_ === false ? 'invalid' : 'valid'}
-          onSelectionChange={handleValidation}
+          errorMessage={valid.class_ === false && 'Please select the class'}
+          isInvalid={valid.class_ === false}
+          onBlur={handleValidation}
         >
           {classOptions.map((c) => (
             <SelectItem key={c} value={c}>
@@ -114,8 +106,9 @@ export default function RegisterForm({
           name="section"
           isRequired
           placeholder="Select your section"
-          validationState={valid.class_ === false ? 'invalid' : 'valid'}
-          onSelectionChange={handleValidation}
+          errorMessage={valid.section === false && 'Please select the section'}
+          isInvalid={valid.section === false}
+          onBlur={handleValidation}
         >
           {sectionOptions.map((s) => (
             <SelectItem key={s} value={s}>
@@ -133,8 +126,8 @@ export default function RegisterForm({
         description="only Email Prefix (without @srmist.edu.in)"
         fullWidth
         isRequired
-        errorMessage={valid.email === false && 'Invalid email'}
-        validationState={valid.email === false ? 'invalid' : 'valid'}
+        errorMessage={valid.email === false && 'Please enter the email'}
+        isInvalid={valid.email === false}
         endContent={<p className="pointer-events-none flex items-center">@srmist.edu.in</p>}
         onBlur={handleValidation}
       />
@@ -153,8 +146,8 @@ export default function RegisterForm({
           </button>
         }
         type={isVisible ? 'text' : 'password'}
-        errorMessage={valid.password === false && 'Invalid Password'}
-        validationState={valid.password === false ? 'invalid' : 'valid'}
+        errorMessage={valid.password === false && 'Please enter the Password'}
+        isInvalid={valid.password === false}
         description="Password length > 6"
         fullWidth
         isRequired
@@ -178,8 +171,9 @@ export default function RegisterForm({
         onClick={registerUser}
         color="success"
         isDisabled={isDisabled}
+        isLoading={loading}
       >
-        {loading ? <Spinner /> : 'Sign Up'}
+        Sign Up
       </Button>
     </form>
   );

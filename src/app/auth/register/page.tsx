@@ -32,8 +32,9 @@ const Register = () => {
 
     try {
       setLoading(true);
-      await registerAuth(userData);
+      console.log(userData);
 
+      await registerAuth(userData);
       router.push('/auth/login');
     } catch (error) {
       if (error instanceof Error) seterrorMsg(error.message);

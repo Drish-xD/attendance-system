@@ -3,7 +3,6 @@ import { Card } from '@nextui-org/card';
 import { Spacer } from '@nextui-org/spacer';
 import AttendanceCard from './AttendanceCard';
 
-// Student attendance history container
 const AttendanceView = ({ history }: { history: AttendanceRecord[] }) => {
   return (
     <Card

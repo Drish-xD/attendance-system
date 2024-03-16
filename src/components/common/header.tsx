@@ -1,11 +1,20 @@
 'use client';
 
-import { Avatar, AvatarIcon } from '@nextui-org/avatar';
-import { Button } from '@nextui-org/button';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown';
-import { Link } from '@nextui-org/link';
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/navbar';
-import { useAuth } from 'contexts/auth';
+import { useAuth } from '@/Provider/auth';
+import {
+  Avatar,
+  AvatarIcon,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Link,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem
+} from '@nextui-org/react';
 import NextLink from 'next/link';
 import { Zap } from 'react-feather';
 

@@ -1,4 +1,3 @@
-// Mockup to show on homescreen
 const Mockup = () => {
   return (
     <div className="w-full max-w-2xl mx-auto px-10">

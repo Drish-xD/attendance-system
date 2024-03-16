@@ -1,18 +1,36 @@
-import type { UserType } from '@/types';
+'use client';
+
+import { UserType } from '@/types';
+import { checkAttendance } from '@/utils/attendance';
+import { getUserDetails } from '@/utils/auth';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Card } from '@nextui-org/card';
 import { Spacer } from '@nextui-org/spacer';
 import { getCookie } from 'cookies-next';
-import { checkAttendance } from 'utils/attendance';
-import { getUserDetails } from 'utils/auth';
+import { useEffect, useState } from 'react';
 
-const UserDetails = async ({ handleAttendance }: { handleAttendance: () => Promise<void> }) => {
-  // get user: Id, details and mark attendance
-  const userId: number = Number(getCookie('user')?.toString());
+const UserDetails = ({ handleAttendance }: { handleAttendance: () => Promise<void> }) => {
+  const [userDetails, setUserDetails] = useState<UserType | null>(null);
+  const [isMarked, setisMarked] = useState(false);
 
-  const userDetails: UserType = await getUserDetails(userId);
-  const attendanceAlreadyMarked = await checkAttendance(userId);
+  useEffect(() => {
+    (async () => {
+      try {
+        const rawCookie = getCookie('loginUser');
+        const safeUserId = rawCookie ? Number(rawCookie) : null;
+
+        if (!safeUserId) return;
+
+        const data = await getUserDetails(safeUserId);
+        setUserDetails(data);
+        const attendanceMarked = await checkAttendance(safeUserId);
+        setisMarked(attendanceMarked);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
 
   return (
     <Card
@@ -30,16 +48,16 @@ const UserDetails = async ({ handleAttendance }: { handleAttendance: () => Promi
           <Avatar name="Jon doe" color="primary" className="w-20 h-20 text-large" />
           <Spacer x={5} />
           <div className="flex justify-center items-center md:items-start flex-col">
-            <h2 className="text-xl">{`${userDetails.fname + ' ' + userDetails.lname}`}</h2>
+            <h2 className="text-xl">{`${userDetails?.fname + ' ' + userDetails?.lname}`}</h2>
             <Spacer y={4} />
             <div className="flex justify-evenly gap-10">
               <span>
                 <p className="font-extralight italic">Email</p>
-                <p>{userDetails.email}</p>
+                <p>{userDetails?.email}</p>
               </span>
               <span>
                 <p className="font-extralight italic">Class</p>
-                <p>{userDetails.class + userDetails.section}</p>
+                <p>{userDetails?.class + userDetails?.section!}</p>
               </span>
             </div>
           </div>
@@ -48,13 +66,8 @@ const UserDetails = async ({ handleAttendance }: { handleAttendance: () => Promi
         <Spacer y={10} />
         <div className="flex justify-center flex-col gap-2">
           <h3 className="text-xl">Mark Attendance for today</h3>
-          <Button
-            color="primary"
-            variant="flat"
-            onClick={handleAttendance}
-            isDisabled={attendanceAlreadyMarked}
-          >
-            {attendanceAlreadyMarked ? 'Marked' : 'Mark'}
+          <Button color="primary" variant="flat" onClick={handleAttendance} isDisabled={isMarked}>
+            {isMarked ? 'Marked' : 'Mark'}
           </Button>
         </div>
       </section>

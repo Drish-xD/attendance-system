@@ -2,7 +2,6 @@ import { Card } from '@nextui-org/card';
 import { Chip } from '@nextui-org/chip';
 import { Check, Clock, File, X } from 'react-feather';
 
-// map data according to status
 const statusData = {
   labels: ['Absent', 'Present', 'Leave'],
   colors: ['danger', 'success', 'warning'],

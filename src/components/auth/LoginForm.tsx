@@ -6,7 +6,6 @@ import { RefObject, useState } from 'react';
 import { Eye, EyeOff } from 'react-feather';
 
 export default function LoginForm({ formRef }: { formRef: RefObject<HTMLFormElement> }) {
-  // state for password show / hide
   const [isVisible, setIsVisible] = useState(false);
 
   // check validation of data
@@ -36,7 +35,7 @@ export default function LoginForm({ formRef }: { formRef: RefObject<HTMLFormElem
         fullWidth
         isRequired
         errorMessage={valid.email === false && 'Invalid email'}
-        validationState={valid.email === false ? 'invalid' : 'valid'}
+        isInvalid={valid.email === false}
         endContent={<p className="pointer-events-none flex items-center">@srmist.edu.in</p>}
         onBlur={handleValidation}
       />
@@ -56,7 +55,7 @@ export default function LoginForm({ formRef }: { formRef: RefObject<HTMLFormElem
         }
         type={isVisible ? 'text' : 'password'}
         errorMessage={valid.password === false && 'Invalid Password'}
-        validationState={valid.password === false ? 'invalid' : 'valid'}
+        isInvalid={valid.password === false}
         description="Password length > 6"
         fullWidth
         isRequired

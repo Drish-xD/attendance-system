@@ -5,7 +5,6 @@ import { Spacer } from '@nextui-org/spacer';
 import NextLink from 'next/link';
 import { Zap } from 'react-feather';
 
-// Home Page '/' route
 export default function Home() {
   return (
     <main className="flex justify-center items-center h-screen flex-col">

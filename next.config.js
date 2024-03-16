@@ -2,8 +2,7 @@
 
 const nextConfig = {
   trailingSlash: false,
-  reactStrictMode: false,
-  swcMinify: true
+  reactStrictMode: false
 };
 
 module.exports = nextConfig;

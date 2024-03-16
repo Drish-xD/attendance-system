@@ -1,9 +1,10 @@
+import { NextUI } from '@/Provider/NextUi';
+import { AuthProvider } from '@/Provider/auth';
 import { Footer, Header } from '@/components';
 import '@/styles/globals.css';
-import { AuthProvider } from 'contexts/auth';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Provider } from './provider';
+import { ReactNode } from 'react';
 
 // google font
 const inter = Inter({ subsets: ['latin'] });
@@ -14,17 +15,17 @@ export const metadata: Metadata = {
   description: 'Simplify Student Attendance Tracking'
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
-        <Provider>
+        <NextUI>
           <AuthProvider>
             <Header />
             {children}
           </AuthProvider>
           <Footer />
-        </Provider>
+        </NextUI>
       </body>
     </html>
   );
